@@ -1,0 +1,22 @@
+FROM ubuntu:16.04
+
+#
+RUN apt-get update && apt-get install -y python3 python3-pip && apt-get clean
+
+# Set Environment Variabls
+# 
+RUN pip3 install dash==0.21.1 dash-renderer==0.13.0 dash-html-components==0.11.0 dash-core-components==0.24.0
+RUN pip3 install plotly --upgrade
+RUN pip3 install numpy pandas pyarrow kafka-python
+RUN pip3 install dash-table-experiments==0.6.0
+RUN pip3 install flask
+
+# Copy
+COPY ./1_strt_pythn.sh /root/
+COPY ./app.py /root/
+COPY ./css /root/css
+
+COPY ./cache /root/cache
+
+# Start
+WORKDIR /root
